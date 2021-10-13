@@ -1,10 +1,12 @@
 package id5190011.todolist.fragments.list
 
 import android.os.Bundle
+import android.text.Layout
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.constraintlayout.widget.ConstraintSet
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import id5190011.todolist.R
@@ -22,6 +24,11 @@ class ListFragment : Fragment() {
         val button = view.findViewById<FloatingActionButton>(R.id.floatingActionButton)
         button.setOnClickListener {
             findNavController().navigate(R.id.action_listFragment_to_addFragment)
+        }
+
+        val listLayout = view.findViewById<View>(R.id.listLayout)
+        listLayout.setOnClickListener {
+            findNavController().navigate(R.id.action_listFragment_to_updateFragment)
         }
 
         return view
