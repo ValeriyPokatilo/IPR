@@ -4,6 +4,8 @@ import android.app.AlertDialog
 import android.os.Bundle
 import android.text.Layout
 import android.view.*
+import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.constraintlayout.widget.ConstraintSet
@@ -15,10 +17,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import id5190011.todolist.R
 import id5190011.todolist.data.viewmodel.ToDoViewModel
+import id5190011.todolist.fragments.ShareViewModel
 
 class ListFragment : Fragment() {
 
     private val mToDoViewModel: ToDoViewModel by viewModels()
+    private val mShareViewModel: ShareViewModel by viewModels()
+
     private val adapter: ListAdapter by lazy { ListAdapter() }
 
     override fun onCreateView(
@@ -34,7 +39,11 @@ class ListFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(requireActivity())
 
         mToDoViewModel.getAllData.observe(viewLifecycleOwner, Observer { data ->
+            mShareViewModel.checkIfDatabaseEmpty(data)
             adapter.setData(data)
+        })
+        mShareViewModel.emptyDatabase.observe(viewLifecycleOwner, Observer {
+            showEmptyDatabaseView(it)
         })
 
         val button = view.findViewById<FloatingActionButton>(R.id.floatingActionButton)
@@ -73,5 +82,20 @@ class ListFragment : Fragment() {
         builder.setNegativeButton("No") {_, _ ->}
         builder.setTitle("Delete all")
         builder.setMessage("Are you sure want to remove all?")
-        builder.create().show()    }
+        builder.create().show()
+    }
+
+
+    private fun showEmptyDatabaseView(emptyDatabase: Boolean) {
+        val noDataImage = view?.findViewById<ImageView>(R.id.no_data_imageView)
+        val noDataText = view?.findViewById<TextView>(R.id.no_data_textView)
+
+        if(emptyDatabase){
+            noDataImage?.visibility = View.VISIBLE
+            noDataText?.visibility = View.VISIBLE
+        }else{
+            noDataImage?.visibility = View.INVISIBLE
+            noDataText?.visibility = View.INVISIBLE
+        }
+    }
 }
