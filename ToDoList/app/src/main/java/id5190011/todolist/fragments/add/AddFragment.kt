@@ -31,6 +31,9 @@ class AddFragment : Fragment() {
         // Set menu
         setHasOptionsMenu(true)
 
+        val spinnerView = view.findViewById<Spinner>(R.id.priorities_spinner)
+        spinnerView.onItemSelectedListener = mShareViewModel.listener
+
         return view
     }
 
