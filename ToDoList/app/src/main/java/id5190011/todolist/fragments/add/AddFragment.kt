@@ -13,10 +13,12 @@ import id5190011.todolist.R
 import id5190011.todolist.data.models.Priority
 import id5190011.todolist.data.models.ToDoData
 import id5190011.todolist.data.viewmodel.ToDoViewModel
+import id5190011.todolist.fragments.ShareViewModel
 
 class AddFragment : Fragment() {
 
     private val mToDoViewModel: ToDoViewModel by viewModels()
+    private val mShareViewModel: ShareViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -52,13 +54,13 @@ class AddFragment : Fragment() {
         val mProirity = priorityView?.selectedItem.toString()
         val mDescription = descriptionView?.text.toString()
 
-        val validation = varifyDataFromUser(mTitle, mDescription)
+        val validation = mShareViewModel.verifyDataFromUser(mTitle, mDescription)
         if(validation){
             // Insert data to database
             val newData = ToDoData(
                 id = 0,
                 mTitle,
-                parsePriority(mProirity),
+                mShareViewModel.parsePriority(mProirity),
                 mDescription
             )
             mToDoViewModel.insertData(newData)
@@ -68,21 +70,6 @@ class AddFragment : Fragment() {
             findNavController().navigate(R.id.action_addFragment_to_listFragment)
         } else {
             Toast.makeText(requireContext(), "Please fill all fields!", Toast.LENGTH_SHORT).show()
-        }
-    }
-
-    private fun varifyDataFromUser(title: String, description: String): Boolean {
-        return if (TextUtils.isEmpty(title) || TextUtils.isEmpty(description)) {
-            false
-        } else !(title.isEmpty() || description.isEmpty())
-    }
-
-    private fun parsePriority(priority: String): Priority {
-        return when(priority){
-            "High Priority" -> {Priority.HIGH}
-            "Medium Priority" -> {Priority.MEDIUM}
-            "Low Priority" -> {Priority.LOW}
-            else -> Priority.LOW
         }
     }
 }
