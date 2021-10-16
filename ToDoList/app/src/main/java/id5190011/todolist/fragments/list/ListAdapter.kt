@@ -7,6 +7,7 @@ import android.widget.Spinner
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import id5190011.todolist.R
 import id5190011.todolist.data.models.Priority
@@ -29,6 +30,11 @@ class ListAdapter: RecyclerView.Adapter<ListAdapter.MyViewHolder>() {
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         holder.itemView.findViewById<TextView>(R.id.title_txt).text = dataList[position].title
         holder.itemView.findViewById<TextView>(R.id.description_txt).text = dataList[position].description
+        holder.itemView.findViewById<View>(R.id.row_background).setOnClickListener {
+            // Переход на экран редактирования Задачи
+            val action = ListFragmentDirections.actionListFragmentToUpdateFragment(dataList[position])
+            holder.itemView.findNavController().navigate(action)
+        }
 
         //val pr = dataList[position].priority
         // ***

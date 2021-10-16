@@ -40,11 +40,6 @@ class ListFragment : Fragment() {
             findNavController().navigate(R.id.action_listFragment_to_addFragment)
         }
 
-        val listLayout = view.findViewById<View>(R.id.listLayout)
-        listLayout.setOnClickListener {
-            findNavController().navigate(R.id.action_listFragment_to_updateFragment)
-        }
-
         // Set menu
         setHasOptionsMenu(true)
 
