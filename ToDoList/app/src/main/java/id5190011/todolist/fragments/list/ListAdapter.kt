@@ -30,16 +30,19 @@ class ListAdapter: RecyclerView.Adapter<ListAdapter.MyViewHolder>() {
         holder.itemView.findViewById<TextView>(R.id.title_txt).text = dataList[position].title
         holder.itemView.findViewById<TextView>(R.id.description_txt).text = dataList[position].description
 
+        //val pr = dataList[position].priority
+        // ***
+        val cv = holder.itemView.findViewById<CardView>(R.id.priority_indicator)
         when(dataList[position].priority){
-            Priority.HIGH -> holder.itemView.findViewById<CardView>(R.id.priority_indicator).setCardBackgroundColor(ContextCompat.getColor(
+            Priority.HIGH -> cv.setCardBackgroundColor(ContextCompat.getColor(
                 holder.itemView.context,
                 R.color.red
             ))
-            Priority.MEDIUM -> holder.itemView.findViewById<CardView>(R.id.priority_indicator).setCardBackgroundColor(ContextCompat.getColor(
+            Priority.MEDIUM -> cv.setCardBackgroundColor(ContextCompat.getColor(
                 holder.itemView.context,
                 R.color.yellow
             ))
-            Priority.LOW -> holder.itemView.findViewById<CardView>(R.id.priority_indicator).setCardBackgroundColor(ContextCompat.getColor(
+            Priority.LOW -> cv.setCardBackgroundColor(ContextCompat.getColor(
                 holder.itemView.context,
                 R.color.green
             ))
