@@ -1,11 +1,10 @@
 package id5190011.todolist.data
 
 import android.content.Context
-import androidx.room.Database
-import androidx.room.Room
-import androidx.room.RoomDatabase
+import androidx.room.*
 
 @Database(entities = [ToDoData::class], version = 1, exportSchema = false)
+@TypeConverters(Converter::class)
 abstract class ToDoDatabase: RoomDatabase() {
 
     abstract fun toDoDao(): ToDoDao
