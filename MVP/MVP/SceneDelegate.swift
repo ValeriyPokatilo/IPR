@@ -14,8 +14,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
-        let feedbackForm = MenuViewController()
-        let navigationMainViewController = UINavigationController(rootViewController: feedbackForm)
+        let menu = MenuViewController()
+        let navigationMainViewController = UINavigationController(rootViewController: menu)
         window?.rootViewController = navigationMainViewController
         window?.makeKeyAndVisible()
     }
